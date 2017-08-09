@@ -15,13 +15,17 @@
 
 # Copyright 2015 Ravi Peters
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
 import numpy as np
 
 def read_las(infile, keys=None):
 	try:
 		from laspy.file import File
 	except ImportError:
-		print "Cannot read las files without laspy module"
+		print("Cannot read las files without laspy module")
 		raise
 
 	inFile = File(infile)

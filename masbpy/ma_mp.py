@@ -15,6 +15,10 @@
 
 # Copyright 2015 Ravi Peters
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
 from numpy.random import rand
 from numpy import array, zeros, concatenate, nan
 import numpy as np
@@ -75,7 +79,7 @@ class MASB(object):
         start, end = end, datalen
         chunk_bounds.append((start, end))
 
-        print "chunking at:", chunk_bounds
+        print("chunking at:", chunk_bounds)
 
         jobs = []
         queue = self.manager.Queue()
@@ -98,7 +102,7 @@ class MASB(object):
 
         t2 = time()
 
-        print "Finished ma computation in {} s".format(t2-t1)
+        print("Finished ma computation in {} s".format(t2-t1))
 
         result.sort(key=lambda item: (item[1], item[0]))
 
@@ -112,13 +116,13 @@ class MASB(object):
         self.D['ma_f2_in'] = concatenate([ma_f2 for start, inner, ma_coords, ma_f2 in result[n:] ])
         # self.D['ma_shrinkhist_in'] = list(chain(*[shrinkhist for start, inner, ma_coords, ma_radii, ma_f2, shrinkhist in result[n:] ]))
         
-        print "Finished datamerging in {} s".format(time()-t2)
+        print("Finished datamerging in {} s".format(time()-t2))
 
     # @autojit
     # @profile
     def __call__(self, queue, start, end, inner=True, verbose=False):
         """Balls shrinking algorithm. Set `inner` to False when outer balls are wanted."""
-        print 'processing', start, end, "inner:", inner#, hex(id(self.kd_tree)), hex(id(self.D))
+        print('processing', start, end, "inner:", inner)#, hex(id(self.kd_tree)), hex(id(self.D))
         m = end-start
         ma_coords = zeros((m, self.n), dtype=np.float32)
         ma_coords[:] = nan
@@ -152,7 +156,7 @@ class MASB(object):
             # forget optimization of r:
             r=self.SuperR
             
-            if verbose: print 'initial r: ' + str(r)
+            if verbose: print('initial r: ' + str(r))
 
             r_ = None
             c = None
@@ -201,7 +205,7 @@ class MASB(object):
                 elif r_ > self.SuperR:
                     r_ = self.SuperR
                     break
-                if verbose: print 'current ball: ' + str(i) +' - ' + str(r_)
+                if verbose: print('current ball: ' + str(i) +' - ' + str(r_))
 
                 c_ = p - n*r_
                 if self.denoise != None:
@@ -231,7 +235,7 @@ class MASB(object):
 
                 # stop iteration if this looks like an infinite loop:
                 if j > 30:
-                    if verbose: print "breaking possible infinite loop at j=30"
+                    if verbose: print("breaking possible infinite loop at j=30")
                     break
 
             if r_ >= self.SuperR or r_ == None:
@@ -245,5 +249,5 @@ class MASB(object):
         result = ( start, inner, ma_coords, ma_f2 )
         queue.put( result )
 
-        print '{} ZeroDivisionErrors'.format(ZeroDivisionError_cnt)
-        print "done!", start, inner, "len:", ma_coords.shape
+        print('{} ZeroDivisionErrors'.format(ZeroDivisionError_cnt))
+        print("done!", start, inner, "len:", ma_coords.shape)

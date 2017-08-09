@@ -15,6 +15,10 @@
 
 # Copyright 2015 Ravi Peters
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
 from numpy.linalg import norm
 
 # numpy based operations for any dimension

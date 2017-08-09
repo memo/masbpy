@@ -15,6 +15,14 @@
 
 # Copyright 2015 Ravi Peters
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+try:
+    xrange
+except NameError:
+    xrange = range
+    
 import math
 import numpy as np
 from pykdtree.kdtree import KDTree
@@ -121,7 +129,7 @@ class MASB(object):
                 try:
                     candidate_c = self.D['coords'][indices]
                 except IndexError as detail:
-                    print detail, indices, dists
+                    print(detail, indices, dists)
                     import pdb; pdb.set_trace()
                     raise
 

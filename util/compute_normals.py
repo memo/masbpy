@@ -17,6 +17,10 @@
 
 #!/usr/bin/env python
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
 from sklearn.decomposition import PCA
 from pykdtree.kdtree import KDTree
 from multiprocessing import Pool
@@ -54,7 +58,7 @@ def main(args):
 	t1 = time()
 	normals = p.map(compute_normal, neighbours)
 	t2 = time()
-	print "finished normal computation in {} s".format(t2-t1)
+	print("finished normal computation in {} s".format(t2-t1))
 	
 	datadict['normals'] = np.array(normals, dtype=np.float32)
 

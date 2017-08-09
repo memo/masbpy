@@ -15,6 +15,14 @@
 
 # Copyright 2015 Ravi Peters
 
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+try:
+    xrange
+except NameError:
+    xrange = range
+
 import numpy as np
 
 def read_ply(infile, limit_points=0, move_to_origin=False, read_normals=True):
